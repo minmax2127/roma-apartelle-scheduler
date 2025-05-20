@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="room-table-container q-pa-md">
-      <h3 class="floor">First Floor</h3>
+      <h3 class="floor mobile-only">First Floor</h3>
       <div class="flex second-floor floor">
         <div class="item item-8">8</div>
         <div class="item item-9">9</div>
@@ -11,7 +11,7 @@
         <div class="item item-13">13</div>
       </div>
 
-      <h3 class="floor">Second Floor</h3>
+      <h3 class="floor mobile-only">Second Floor</h3>
       <div class="flex first-floor floor">
         <div class="item item-1">1</div>
         <div class="item item-2">2</div>
