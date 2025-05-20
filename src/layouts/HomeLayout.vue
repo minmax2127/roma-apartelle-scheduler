@@ -10,7 +10,7 @@
             height="50"
             color="white"
           />
-          Roma Apartelle
+          site
         </q-toolbar-title>
         <q-btn flat label="Admin" to="/admin" />
       </q-toolbar>

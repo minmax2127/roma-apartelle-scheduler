@@ -1,85 +1,109 @@
 <template>
-  <q-page class="q-pa-md bg-grey-2">
-    <div class="first_row">
-      <!-- First Row -->
-      <div class="row q-col-gutter-md q-mb-md">
-        <!-- Family Room - Larger -->
-        <div class="col-2">
-          <q-card
-            class="q-pa-md border"
-            :class="['border', selected ? 'bg-primary text-white' : 'bg-transparent text-primary']"
-            @click="toggleSelect"
-            style="border: 2px solid var(--q-primary)"
-          >
-            <div class="text-h6 text-center">8</div>
-          </q-card>
-        </div>
+  <q-page>
+    <div class="room-table-container q-pa-md">
+      <h3 class="floor">First Floor</h3>
+      <div class="flex second-floor floor">
+        <div class="item item-8">8</div>
+        <div class="item item-9">9</div>
+        <div class="item item-10">10</div>
+        <div class="item item-11">11</div>
+        <div class="item item-12">12</div>
+        <div class="item item-13">13</div>
+      </div>
 
-        <!-- 5 Standard Rooms -->
-        <div class="col-1" v-for="room in 5" :key="'row1-room' + room">
-          <!-- <q-card class="bg-primary text-white q-pa-sm border">
-            <div class="text-subtitle2 text-center">Room {{ room + 8 }}</div>
-          </q-card> -->
-          <q-card
-            class="q-pa-md border"
-            :class="['border', selected ? 'bg-primary text-white' : 'bg-transparent text-primary']"
-            @click="toggleSelect"
-            style="border: 2px solid var(--q-primary)"
-          >
-            <div class="text-h6 text-center">{{ room + 8 }}</div>
-          </q-card>
-        </div>
+      <h3 class="floor">Second Floor</h3>
+      <div class="flex first-floor floor">
+        <div class="item item-1">1</div>
+        <div class="item item-2">2</div>
+        <div class="item item-3">3</div>
+        <div class="item item-4">4</div>
+        <div class="item item-5">5</div>
+        <div class="item item-6">6</div>
+        <div class="item item-7">7</div>
       </div>
     </div>
 
-    <!-- Second Row -->
-    <div class="row q-col-gutter-md">
-      <!-- 7 Standard Rooms -->
-      <div class="col-1" v-for="room in 7" :key="'row1-room' + room">
-        <!-- <q-card class="bg-primary text-white q-pa-sm border">
-            <div class="text-subtitle2 text-center">Room {{ room + 8 }}</div>
-          </q-card> -->
-        <q-card
-          class="q-pa-md border"
-          :class="['border', selected ? 'bg-primary text-white' : 'bg-transparent text-primary']"
-          @click="toggleSelect"
-          style="border: 2px solid var(--q-primary)"
-        >
-          <div class="text-h6 text-center">{{ room }}</div>
-        </q-card>
-      </div>
-    </div>
+    <q-dialog v-model="dialogVisible">
+      <q-card class="q-pa-md full-width">
+        <q-card-section class="q-col-gutter-md">
+          <q-breadcrumbs align="around">
+            <q-breadcrumbs-el label="Schedule" />
+            <q-breadcrumbs-el label="Book" />
+            <q-breadcrumbs-el label="Copy TXT" />
+          </q-breadcrumbs>
+
+          <div class="text-h6">Room Schedule</div>
+
+          <div class="reservations">
+            <div class="res flex flex-row justify-between">
+              <span>1</span>
+              <span>3 hrs</span>
+              <span>1:00am - 4:00am</span>
+            </div>
+
+            <div class="res flex flex-row justify-between">
+              <span>2</span>
+              <span>3 hrs</span>
+              <span>5:00am - 6:00am</span>
+            </div>
+
+            <div class="res flex flex-row justify-between">
+              <span>1</span>
+              <span>3 hrs</span>
+              <span>1:00am - 4:00am</span>
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-btn class="full-width q-mt-lg" color="primary" label="Book" />
+
+        <q-card-actions align="center">
+          <q-btn flat label="Close" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-// import room_list from 'src/data/room_list.js'
-
-// reactive current time
-const currentTime = ref(new Date())
-
-// update current time every second
-let interval = null
-onMounted(() => {
-  interval = setInterval(() => {
-    currentTime.value = new Date()
-  }, 1000)
-})
-
-onUnmounted(() => {
-  clearInterval(interval)
-})
-
-// 3. Make rooms reactive
-// const rooms = ref(room_list)
-
-// check if room is occupied
-function isRoomOccupied(room) {
-  return room.reservations.some((res) => {
-    const checkIn = new Date(res.checkInDateTime)
-    const checkOut = new Date(res.checkOutDateTime)
-    return currentTime.value >= checkIn && currentTime.value <= checkOut
-  })
+<style>
+.room-table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.item {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  min-width: 100px;
+  flex: 1;
+  min-height: 100px;
+  margin: 1rem;
+}
+
+.floor {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex: 1;
+  width: 100%;
+}
+
+.q-card {
+  transition: transform 0.2s ease;
+}
+/* .q-card:hover {
+  transform: scale(1.05);
+} */
+</style>
+
+<script setup>
+import { ref } from 'vue'
+
+const dialogVisible = ref(true)
 </script>
