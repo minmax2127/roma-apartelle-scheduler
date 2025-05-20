@@ -1,11 +1,10 @@
 <template>
   <q-page>
-    <!-- Container for the room table (currently empty, can be used for future content) -->
+    <!-- Room Table Container -->
     <div class="room-table-container q-pa-md">
-      <!-- Section for 2nd Floor rooms (visible on mobile only) -->
+      <!-- 2nd Floor Rooms -->
       <h3 class="floor mobile-only">2nd Floor</h3>
       <div class="flex second-floor floor">
-        <!-- Render each room on the 2nd floor as a button -->
         <div class="room" v-for="room in topRooms" :key="room.no">
           <q-btn
             outline
@@ -18,10 +17,9 @@
         </div>
       </div>
 
-      <!-- Section for 1st Floor rooms (visible on mobile only) -->
+      <!-- 1st Floor Rooms -->
       <h3 class="floor mobile-only">1st Floor</h3>
       <div class="flex first-floor floor">
-        <!-- Render each room on the 1st floor as a button -->
         <div class="room" v-for="room in bottomRooms" :key="room.no">
           <q-btn
             outline
@@ -35,7 +33,7 @@
       </div>
     </div>
 
-    <!-- Modal component for additional interactions -->
+    <!-- Modal for Room Details/Actions -->
     <ModalBox v-model="dialogBoxOpen" />
   </q-page>
 </template>
@@ -45,11 +43,9 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  /* align-items: center; */
   border: 2px solid black;
 }
 
-/* Styles for each room button */
 .room {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
@@ -59,13 +55,11 @@
   align-items: center;
   font-size: 1rem;
   min-width: 100px;
-  /* flex: 1; */
   min-height: 100px;
   margin: 1rem;
   flex: 1;
 }
 
-/* Styles for floor containers */
 .floor {
   display: flex;
   justify-content: center;
@@ -76,46 +70,30 @@
 </style>
 
 <script setup>
-// Import Vue composition API utilities
-import { ref, computed } from 'vue'
-// Import the modal component
+// Vue composition API
+import { ref } from 'vue'
+// Modal component for room actions/details
 import ModalBox from '../components/ModalBox.vue'
-// Import the list of rooms data
-import room_list from 'src/data/rooms.js'
-// Import helpers for date formatting
-// import { formatDateString, calculateCheckOutTime, calculateDuration } from 'src/utils/DateFormatter'
-import { formatDateString, calculateCheckOutTime, currentDateTime } from 'src/utils/DateFormatter'
+// Room store for state management
+import { useRoomStore } from 'src/stores/roomStore'
 
-// Reactive reference to the list of rooms
-const rooms = ref(room_list)
+// Initialize room store
+const roomStore = useRoomStore()
 
-// Computed property for rooms on the 2nd floor
-const topRooms = computed(() => {
-  return rooms.value.filter((room) => room.floor === 2)
-})
+// Room lists for each floor
+const topRooms = ref(roomStore.topRooms)
+const bottomRooms = ref(roomStore.bottomRooms)
 
-// Computed property for rooms on the 1st floor
-const bottomRooms = computed(() => {
-  return rooms.value.filter((room) => room.floor === 1)
-})
-
+// Controls ModalBox visibility
 const dialogBoxOpen = ref(false)
 
-// Handler for when a room button is clicked
+/**
+ * Handles room button click:
+ * - Opens the modal
+ * - Sets the selected room in the store
+ */
 const clickRoom = (room) => {
-  console.log('Room clicked:', room.no)
-  // const checkIn = formatDateString(room.reservations[0].checkInDateTime)
-  const checkOut = calculateCheckOutTime(
-    room.reservations[0].checkInDateTime,
-    room.reservations[0].hours,
-  )
-
-  console.log('Current Time: ', formatDateString(currentDateTime()))
-
-  console.log('Check-in time:', formatDateString(room.reservations[0].checkInDateTime))
-  console.log('Check-out time:', formatDateString(checkOut))
-  console.log('Duration:', room.reservations[0].hours)
-
   dialogBoxOpen.value = true
+  roomStore.setSelectedRoom(room)
 }
 </script>

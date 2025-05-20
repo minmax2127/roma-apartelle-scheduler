@@ -31,6 +31,7 @@ function calculateCheckOutTime(checkInDateTime, duration) {
 
 function currentDateTime() {
   const now = new Date()
+
   return now.toISOString()
 }
 
@@ -41,4 +42,26 @@ function getYYYYMMDD(dateObj) {
   return `${year}-${month}-${day}`
 }
 
-export { formatDateString, calculateDuration, calculateCheckOutTime, currentDateTime, getYYYYMMDD }
+function convertTo24HourFormat(time12h) {
+  const [time, modifier] = time12h.split(' ')
+  let [hours, minutes] = time.split(':')
+
+  if (hours === '12') {
+    hours = '00'
+  }
+
+  if (modifier.toUpperCase() === 'PM') {
+    hours = parseInt(hours, 10) + 12
+  }
+
+  return `${hours}:${minutes}`
+}
+
+export {
+  formatDateString,
+  calculateDuration,
+  calculateCheckOutTime,
+  currentDateTime,
+  getYYYYMMDD,
+  convertTo24HourFormat,
+}
