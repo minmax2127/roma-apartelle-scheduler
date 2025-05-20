@@ -204,7 +204,7 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-19T13:00:00',
-        checkOutDateTime: '2025-05-20T11:00:00',
+        hours: 3,
       },
     ],
   },
@@ -215,7 +215,7 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-21T15:00:00',
-        checkOutDateTime: '2025-05-23T11:00:00',
+        hours: 6,
       },
     ],
   },
@@ -232,11 +232,11 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-18T12:00:00',
-        checkOutDateTime: '2025-05-19T10:00:00',
+        hours: 3,
       },
       {
         checkInDateTime: '2025-05-20T14:00:00',
-        checkOutDateTime: '2025-05-22T12:00:00',
+        hours: 3,
       },
     ],
   },
@@ -253,7 +253,7 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-19T16:00:00',
-        checkOutDateTime: '2025-05-20T14:00:00',
+        hours: 24,
       },
     ],
   },
@@ -270,7 +270,7 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-20T14:00:00',
-        checkOutDateTime: '2025-05-22T12:00:00',
+        hours: 12,
       },
     ],
   },
@@ -281,7 +281,7 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-21T12:00:00',
-        checkOutDateTime: '2025-05-24T10:00:00',
+        hours: 6,
       },
     ],
   },
@@ -304,7 +304,7 @@ const room_list = [
     reservations: [
       {
         checkInDateTime: '2025-05-20T14:00:00',
-        checkOutDateTime: '2025-05-21T12:00:00',
+        hours: 3,
       },
     ],
   },

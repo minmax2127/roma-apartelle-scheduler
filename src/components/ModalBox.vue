@@ -2,12 +2,6 @@
   <q-dialog v-model="dialogVisible">
     <q-card class="q-pa-md full-width">
       <q-card-section class="q-col-gutter-md">
-        <!-- <q-breadcrumbs align="around">
-          <q-breadcrumbs-el label="Schedule" />
-          <q-breadcrumbs-el label="Book" />
-          <q-breadcrumbs-el label="Copy TXT" />
-        </q-breadcrumbs> -->
-
         <!-- Breadcrumbs -->
         <q-breadcrumbs active-color="primary">
           <q-breadcrumbs-el
@@ -32,12 +26,19 @@
 </template>
 
 <script setup>
+const props = defineProps({
+  dialogBoxOpen: {
+    type: Boolean,
+    default: false,
+  },
+})
+
 import { ref, computed } from 'vue'
 import CheckReservations from 'src/components/modal-stages/CheckReservations.vue'
 import BookRoom from 'src/components/modal-stages/BookRoom.vue'
 import CopyText from 'src/components/modal-stages/CopyText.vue'
 
-const dialogVisible = ref(true)
+const dialogVisible = ref(props.dialogBoxOpen)
 const currentStage = ref(0)
 const stages = ['Schedule', 'Book', 'Copy TXT']
 
