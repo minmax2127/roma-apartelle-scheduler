@@ -1,0 +1,22 @@
+# Node modules for both client and server
+client/node_modules/
+server/node_modules/
+
+# Environment files for both (assuming .env files)
+client/.env
+server/.env
+
+# Quasar build/dist output (client)
+client/dist/
+client/.quasar/
+
+# Logs (optional, but recommended)
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional system files
+.DS_Store
+Thumbs.db
