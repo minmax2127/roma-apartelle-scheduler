@@ -35,6 +35,4 @@ GET /api/reservations/:room_number - Fetch reservations for a specific room numb
 POST /api/reservations { room_no, checkInDateTime, hours } - Add a new reservation
 PUT /api/reservations/:id { room_no, checkInDateTime, hours } - Update an existing reservation
 DELETE /api/reservations/:id - Delete a reservation
-
-
 */

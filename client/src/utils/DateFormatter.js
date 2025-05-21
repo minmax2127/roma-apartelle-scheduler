@@ -57,6 +57,27 @@ function convertTo24HourFormat(time12h) {
   return `${hours}:${minutes}`
 }
 
+function timestampToISOString(timestamp) {
+
+  try {
+    // Convert seconds to milliseconds
+    const milliseconds = timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1000000)
+
+    // Create a Date object
+    const date = new Date(milliseconds)
+
+    // Convert to ISO string
+    const isoString = date.toISOString()
+
+    return isoString
+  } catch (error) {
+    console.log(error)
+  }
+
+
+}
+
+
 export {
   formatDateString,
   calculateDuration,
@@ -64,4 +85,5 @@ export {
   currentDateTime,
   getYYYYMMDD,
   convertTo24HourFormat,
+  timestampToISOString,
 }

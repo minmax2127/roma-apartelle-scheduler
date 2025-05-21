@@ -12,7 +12,7 @@
           />
           site
         </q-toolbar-title>
-        <q-btn flat label="Admin" to="/admin" />
+        <q-btn flat label="Admin" to="/admin/dashboard" />
       </q-toolbar>
     </q-header>
 

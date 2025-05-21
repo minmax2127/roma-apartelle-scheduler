@@ -3,7 +3,7 @@ const routes = [
     path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: 'dashboard', component: () => import('pages/AdminPage.vue') },
+      { path: 'dashboard', component: () => import('pages/admin/AdminPage.vue') },
     ],
   },
   {
@@ -23,3 +23,38 @@ const routes = [
 ]
 
 export default routes
+
+
+/*
+AUTH GUARD
+
+import { auth } from 'src/boot/firebase.js'
+import { onAuthStateChanged } from 'firebase/auth'
+
+const requireAuth = async (to, from, next) => {
+  const unsubscribe = onAuthStateChanged(auth, user => {
+    unsubscribe() // Clean up listener
+    if (user) {
+      next() // Allow access
+    } else {
+      next('/login') // Redirect to login
+    }
+  })
+}
+
+const routes = [
+  {
+    path: '/dashboard',
+    component: () => import('pages/DashboardPage.vue'),
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/login',
+    component: () => import('pages/LoginPage.vue')
+  }
+]
+
+
+
+
+*/
