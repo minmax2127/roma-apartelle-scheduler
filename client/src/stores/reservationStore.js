@@ -3,15 +3,28 @@ import { timestampToISOString, formatDateString, calculateCheckOutTime  } from '
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-const API_URL = "http://192.168.1.5:3000/api"
+// const API_URL = "http://192.168.1.5:3000/api"
+const API_URL = "https://roma-apartelle-scheduler.onrender.com/api"
 
 export const useReservationStore = defineStore('reservation', {
   state: () => ({
     reservations: [],
+    loading: false
   }),
 
 
   actions: {
+
+    // add reservation
+    async addReservation(reservationData) {
+      try {
+        const response = await axios.post(`${API_URL}/reservations`, reservationData)
+        return response.data  // optional: return the added data
+      } catch (error) {
+        console.error('Error adding reservation:', error)
+        throw error
+      }
+    },
 
     async fetchReservations() {
       try {
@@ -25,11 +38,14 @@ export const useReservationStore = defineStore('reservation', {
 
     async fetchReservationsByRoomNo(room_no) {
       try {
+        this.loading = true
         const response = await axios.get(`${API_URL}/reservations/${room_no}`)
         this.reservations = response.data
       } catch (error) {
         console.error('Error fetching reservations:', error)
         return null;
+      } finally {
+        this.loading = false
       }
     },
 
@@ -64,17 +80,6 @@ export const useReservationStore = defineStore('reservation', {
         return checkInDateOnly === targetDate
       })
     },
-
-    // add reservation
-    async addReservation(reservationData) {
-      try {
-        const response = await axios.post(`${API_URL}/reservations`, reservationData)
-        return response.data  // optional: return the added data
-      } catch (error) {
-        console.error('Error adding reservation:', error)
-        throw error
-      }
-    }
 
 
 

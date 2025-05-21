@@ -40,7 +40,7 @@ import CopyText from 'src/components/modal-stages/CopyText.vue'
 
 const dialogVisible = ref(props.dialogBoxOpen)
 const currentStage = ref(0)
-const stages = ['Schedule', 'Book', 'Copy TXT']
+const stages = ['Schedule', 'Book']
 
 const stageComponent = computed(() => {
   return [CheckReservations, CheckPrice, CopyText][currentStage.value]

@@ -3,16 +3,16 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          <img
+          <!-- <img
             src="/public/icons/favicon-128x128.png"
             alt="Logo"
             width="50"
             height="50"
             color="white"
-          />
-          site
+          /> -->
+          Roma Apartelle
         </q-toolbar-title>
-        <q-btn flat label="Admin" to="/admin/dashboard" />
+        <q-btn flat label="Sign In" to="/signin" />
       </q-toolbar>
     </q-header>
 

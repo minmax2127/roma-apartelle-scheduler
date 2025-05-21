@@ -80,7 +80,20 @@ const linksList = [
     caption: 'Check out the view of the website visitor',
     icon: 'home',
     link: '/',
-  }
+  },
+  {
+    title: 'Reservation List',
+    caption: 'See all reservations',
+    icon: 'list',
+    link: '/admin/dashboard',
+  },
+  {
+    title: 'Add Reservation',
+    caption: 'Add a reservation',
+    icon: 'add',
+    link: '/admin/add-reservation',
+  },
+
 ]
 
 

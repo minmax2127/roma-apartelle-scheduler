@@ -8,6 +8,7 @@
       type="date"
       hint="Date to check"
       class="date-input q-mb-sm"
+      @change="changeReservations"
     />
 
     <div v-if="reservations.length > 0" class="reservations">
@@ -27,7 +28,6 @@
       <span>No reservation</span>
     </div>
 
-    <q-btn class="full-width q-mt-md" color="primary" label="Book" />
   </div>
 </template>
 
@@ -90,7 +90,7 @@
 
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useReservationStore } from 'src/stores/reservationStore';
 import { useRoomStore } from 'src/stores/roomStore';
 import { getYYYYMMDD } from 'src/utils/DateFormatter';
@@ -104,17 +104,27 @@ const date = ref(getYYYYMMDD(new Date()))
 
 
 const reservations = ref([])
+const reservationsByDate = ref([])
 
-onMounted(async() => {
-  // continuously check for reservations in a certain room
+const changeReservations = async()=> {
   await reservationStore.fetchReservationsByRoomNo(roomStore.selectedRoom.no)
-  const reservationsToday = ref(reservationStore.getReservationsByDate(reservationStore.reservations, date.value))
-  console.log(reservationsToday.value)
+  reservationsByDate.value = ref(reservationStore.getReservationsByDate(reservationStore.reservations, date.value))
+  console.log(reservationsByDate.value)
   reservations.value = reservationStore.formatReservations(reservationStore.reservations)
 
+}
+
+onMounted(async() => {
+
+  // continuously check for reservations in a certain room
+  changeReservations()
 
   // edit to show reservations today
 
+})
+
+watch(date, () => {
+  changeReservations()
 })
 
 

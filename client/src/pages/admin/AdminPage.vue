@@ -16,11 +16,15 @@
     <q-table
       title="Reservation List"
       :rows="reservations"
-      :columns="columns"
       flat
       bordered
       row-key="id"
-    />
+      :loading="reservationStore.loading"
+    >
+      <template v-slot:loading>
+        <q-inner-loading showing color="primary" />
+      </template>
+    </q-table>
   </div>
 </template>
 
@@ -40,6 +44,7 @@ import {useReservationStore} from 'src/stores/reservationStore.js'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 
+
 const reservations = ref([])
 const reservationStore = useReservationStore()
 // const formattedReservations = ref([])
@@ -48,10 +53,6 @@ onMounted(async() => {
   // continuously check for reservations in a certain room
   await reservationStore.fetchReservations()
   reservations.value = reservationStore.formatReservations(reservationStore.reservations)
-
-
-
-  console.log('Reservations:', reservations.value)
 })
 
 
