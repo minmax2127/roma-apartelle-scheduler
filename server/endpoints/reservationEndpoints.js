@@ -1,6 +1,6 @@
 import express from 'express'
 import { db } from '../firebase.js'
-import { collection, getDocs, query, where } from 'firebase/firestore' // ✅ Include query and where
+import { collection, getDocs, query, where, addDoc } from 'firebase/firestore' // ✅ Include query and where
 
 const router = express.Router()
 
@@ -42,23 +42,12 @@ router.get('/reservations/:room_number', async (req, res) => {
 // ✅ ADD a new reservation
 router.post('/reservations', async (req, res) => {
   try {
-    const { room_no, checkInDateTime, hours } = req.body
-
-    if (!room_no || !checkInDateTime || !hours) {
-      return res.status(400).json({ error: 'Missing reservation fields' })
-    }
-
-    const newReservation = {
-      room_no,
-      checkInDateTime,
-      hours
-    }
-
-    const docRef = await addDoc(reservationsRef, newReservation)
-    res.status(201).json({ id: docRef.id, ...newReservation })
+    const reservationData = req.body
+    const docRef = await addDoc(collection(db, 'reservations'), reservationData)
+    res.status(200).send({ message: 'Reservation added', id: docRef.id })
   } catch (error) {
     console.error('Error adding reservation:', error)
-    res.status(500).json({ error: 'Failed to add reservation' })
+    res.status(500).send('Failed to add reservation')
   }
 })
 
