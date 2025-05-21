@@ -3,14 +3,16 @@ const routes = [
     path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: 'signin', component: () => import('pages/SignInPage.vue') },
       { path: 'dashboard', component: () => import('pages/AdminPage.vue') },
     ],
   },
   {
     path: '/',
     component: () => import('layouts/HomeLayout.vue'), // <- your custom layout for homepage
-    children: [{ path: '', component: () => import('pages/HomePage.vue') }],
+    children: [
+      { path: 'signin', component: () => import('pages/SignInPage.vue') },
+      { path: '', component: () => import('pages/HomePage.vue') }
+    ],
   },
 
   // Always leave this as last one
