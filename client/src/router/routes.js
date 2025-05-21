@@ -4,6 +4,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: 'dashboard', component: () => import('pages/admin/AdminPage.vue') },
+      { path: 'add-reservation', component: () => import('pages/admin/AddReservation.vue') },
     ],
   },
   {

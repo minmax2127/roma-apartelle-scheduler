@@ -35,7 +35,7 @@ const props = defineProps({
 
 import { ref, computed } from 'vue'
 import CheckReservations from 'src/components/modal-stages/CheckReservations.vue'
-import BookRoom from 'src/components/modal-stages/BookRoom.vue'
+import CheckPrice from 'src/components/modal-stages/CheckPrice.vue'
 import CopyText from 'src/components/modal-stages/CopyText.vue'
 
 const dialogVisible = ref(props.dialogBoxOpen)
@@ -43,7 +43,7 @@ const currentStage = ref(0)
 const stages = ['Schedule', 'Book', 'Copy TXT']
 
 const stageComponent = computed(() => {
-  return [CheckReservations, BookRoom, CopyText][currentStage.value]
+  return [CheckReservations, CheckPrice, CopyText][currentStage.value]
 })
 
 // function nextStage() {

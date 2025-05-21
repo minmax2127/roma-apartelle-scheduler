@@ -1,19 +1,3 @@
-<!-- <template>
-  <div class="container" style="margin: 1rem;">
-    <div class="flex">
-      <h3>Reservations</h3>
-      <q-btn label="+" color="primary" @click="logout" />
-    </div>
-
-    <q-table
-      title="Reservations"
-      :rows="formattedReservations"
-      :columns="columns"
-    ></q-table>
-
-  </div>
-
-</template> -->
 
 <template>
   <div class="q-pa-md">
@@ -31,7 +15,7 @@
 
     <q-table
       title="Reservation List"
-      :rows="formattedReservations"
+      :rows="reservations"
       :columns="columns"
       flat
       bordered
@@ -58,13 +42,15 @@ import { ref, onMounted } from 'vue'
 
 const reservations = ref([])
 const reservationStore = useReservationStore()
-const formattedReservations = ref([])
+// const formattedReservations = ref([])
 
 onMounted(async() => {
+  // continuously check for reservations in a certain room
   await reservationStore.fetchReservations()
-  reservationStore.formatReservations()
-  reservations.value = reservationStore.reservations
-  formattedReservations.value = reservationStore.formattedReservations
+  reservations.value = reservationStore.formatReservations(reservationStore.reservations)
+
+
+
   console.log('Reservations:', reservations.value)
 })
 
@@ -82,7 +68,7 @@ const router = useRouter()
 // }
 
 function goToAddReservation() {
-  router.push('/add-reservation') // Replace with your actual route
+  router.push('/admin/add-reservation') // Replace with your actual route
 }
 
 </script>
