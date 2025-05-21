@@ -23,6 +23,7 @@ jobs:
 
       - name: Build Quasar app
         run: |
+          cd client
           npm install -g @quasar/cli
           quasar build
 
